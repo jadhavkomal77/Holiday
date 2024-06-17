@@ -11,9 +11,10 @@ app.use(express.json())
 app.use(express.static("dist"))
 app.use(express.static("uploads"))
 app.use(cookieParser())
+
 app.use(cors({
-    // origin: "http://localhost:5173",
-    origin: "https://holiday-ay9x.onrender.com",
+    origin: "http://localhost:5173",
+    // origin: "https://holiday-ay9x.onrender.com",
     credentials: true
 }))
 // route
@@ -24,7 +25,7 @@ app.use("/api/order", require("./routes/orderRoute"))
 // 404
 app.use("*", (req, res) => {
     // res.status(404).json({ message: "Resource Not Found" })
-    res.sendFile(path.join(__dirname,"dist","index.html"))
+    res.sendFile(path.join(__dirname, "dist", "index.html"))
 })
 // error handler
 app.use((err, req, res, next) => {
@@ -34,6 +35,6 @@ app.use((err, req, res, next) => {
 // db
 mongoose.connect(process.env.MONGO_URL)
 mongoose.connection.once("open", () => {
-    console.log("Mongo Connected")
+    console.log("MONGO CONNECTED")
     app.listen(process.env.PORT, console.log("SERVER RUNNING"))
 })
